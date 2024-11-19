@@ -1,0 +1,1046 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+
+:root {
+  --main-color: #2980b9;
+  --orange: #f39c12;
+  --red: #e74c3c;
+  --black: #444;
+  --white: #fff;
+  --light-color: #777;
+  --light-bg: #f5f5f5;
+  --border: 0.2rem solid var(--black);
+  --box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+* {
+  font-family: "Nunito", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  text-decoration: none;
+}
+
+*::selection {
+   background: linear-gradient(to right, #245e34, #4e794f);
+  color: var(--white);
+}
+
+::-webkit-scrollbar {
+  height: 0.5rem;
+  width: 1rem;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+   background: linear-gradient(to right, #245e34, #4e794f);
+}
+
+html {
+  font-size: 62.5%;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: var(--light-bg);
+}
+
+section {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.heading {
+  font-size: 4rem;
+  color: var(--black);
+  margin-bottom: 2rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.btn,
+.delete-btn,
+.option-btn {
+  display: block;
+  width: 100%;
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+  padding: 1rem 3rem;
+  font-size: 1.7rem;
+  text-transform: capitalize;
+  color: var(--white);
+  cursor: pointer;
+  text-align: center;
+}
+
+.btn:hover,
+.delete-btn:hover,
+.option-btn:hover {
+  background-color: var(--black);
+}
+
+.btn {
+   background: linear-gradient(to right, #245e34, #4e794f);
+}
+
+.option-btn {
+   background: linear-gradient(to right, #245e34, #4e794f);
+}
+
+.delete-btn {
+   background: linear-gradient(to right, #245e34, #4e794f);
+}
+
+.flex-btn {
+  display: flex;
+  gap: 1rem;
+}
+
+.message {
+   position: fixed; /* Cố định vị trí ở đầu trang */
+   top: 0;
+   left: 0;
+   right: 0;
+   background-color: var(--light-bg);
+   padding: 1rem 2rem;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   gap: 1.5rem;
+   z-index: 1100; /* Đảm bảo thông báo nằm trên cùng */
+   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+ }
+ 
+ .message span {
+   font-size: 1.6rem;
+   color: var(--black);
+ }
+ 
+ .message i {
+   cursor: pointer;
+   background: linear-gradient(to right, #245e34, #4e794f);
+   font-size: 2rem;
+ }
+ 
+ .message i:hover {
+   color: var(--black);
+ }
+ 
+
+.empty {
+  padding: 1.5rem;
+  background-color: var(--white);
+  border: var(--border);
+  box-shadow: var(--box-shadow);
+  text-align: center;
+  background: linear-gradient(to right, #245e34, #4e794f);
+  border-radius: 0.5rem;
+  font-size: 2rem;
+  text-transform: capitalize;
+}
+
+@keyframes fadeIn {
+  0% {
+    transform: translateY(1rem);
+  }
+}
+
+/* Container chính với hình nền bao phủ */
+.tong {
+  background-image: url("https://donghodoapsuat.net/wp-content/uploads/2022/08/hinh-nen-mau-xanh-reu-cho-lap-top.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Form container với chiều cao toàn màn hình, căn giữa form */
+.form-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Form và lớp phủ mờ nền sử dụng ::before */
+.form-container form {
+  position: relative; /* Đặt form ở vị trí tương đối để sử dụng ::before */
+  padding: 2rem;
+  text-align: center;
+  box-shadow: var(--box-shadow);
+  background-color: var(--white);
+  border-radius: 0.5rem;
+  width: 50rem;
+  border: var(--border);
+  z-index: 1; /* Nội dung form trên lớp nền mờ */
+}
+
+/* Tạo lớp nền mờ với ::before */
+.form-container form::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("https://donghodoapsuat.net/wp-content/uploads/2022/08/hinh-nen-mau-xanh-reu-cho-lap-top.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(8px); /* Làm mờ hình nền */
+  z-index: -1; /* Nền mờ phía sau nội dung form */
+  border-radius: 0.5rem; /* Đảm bảo lớp mờ cũng bo góc giống form */
+}
+
+/* Tiêu đề h3 không bị mờ */
+.form-container form h3 {
+  text-transform: uppercase;
+  color: var(--black);
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
+  position: relative;
+  z-index: 2; /* Đảm bảo nội dung không bị mờ */
+}
+
+/* Các đoạn văn bản không bị mờ */
+.form-container form p {
+  font-size: 1.8rem;
+  color: var(--light-color);
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+  position: relative;
+  z-index: 2; /* Đảm bảo nội dung không bị mờ */
+}
+
+/* Các ô input không bị mờ */
+.form-container form .box {
+  width: 100%;
+  margin: 1rem 0;
+  border-radius: 0.5rem;
+  background-color: var(--light-bg);
+  padding: 1.4rem;
+  font-size: 1.8rem;
+  color: var(--black);
+  position: relative;
+  z-index: 2; /* Đảm bảo nội dung không bị mờ */
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--white);
+  box-shadow: var(--box-shadow);
+  z-index: 1000;
+}
+
+.header .flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.header .flex .logo img {
+   width: 130px;
+   height: 130px;    /* Giữ tỷ lệ chiều cao tự động */
+}
+.header .flex .logo {
+  font-size: 2.5rem;
+  color: var(--black);
+}
+
+.header .flex .logo span {
+   background: linear-gradient(to right, #245e34, #4e794f);
+}
+
+
+
+/* Điều chỉnh kích thước của pseudo-elements cho đúng với liên kết */
+.header .flex .navbar a {
+  position: relative;
+  margin: 0 1rem;
+  font-size: 2rem;
+  color: var(--black);
+  display: inline-block; /* Chuyển sang inline-block để dễ kiểm soát */
+  padding: 10px 20px; /* Thêm padding để tạo khoảng không */
+  text-decoration: none; /* Xóa gạch chân mặc định */
+}
+
+
+/* Điều chỉnh kích thước của pseudo-elements */
+.header .flex .navbar a:hover::before,
+.header .flex .navbar a:hover::after {
+  display: block;
+  content: "";
+  position: absolute;
+  top: 0; /* Đảm bảo bắt đầu từ phía trên của liên kết */
+  left: 0;
+  width: 100%; /* Đặt kích thước phủ toàn bộ liên kết */
+  height: 100%;
+  border-radius: 30px;
+  z-index: -1;
+}
+
+/* Màu sắc và animation khi di chuột */
+.header .flex .navbar a:hover::before {
+  background: #68956d;
+  animation: clockwise 1s infinite;
+}
+
+.header .flex .navbar a:hover::after {
+  background: #276e47;
+  animation: counterclockwise 2s infinite;
+}
+
+/* Điều chỉnh lại keyframes cho phù hợp */
+@keyframes clockwise {
+  0% {
+    top: 0;
+    left: 0;
+  }
+  50% {
+    top: 5px;
+    left: 0;
+  }
+  100% {
+    top: 0;
+    left: 0;
+  }
+}
+
+@keyframes counterclockwise {
+  0% {
+    top: 0;
+    right: 0;
+  }
+  50% {
+    top: 5px;
+    right: 0;
+  }
+  100% {
+    top: 0;
+    right: 0;
+  }
+}
+
+.header .flex .icons div {
+  margin-left: 1.7rem;
+  font-size: 2.5rem;
+  cursor: pointer;
+  color: var(--black);
+}
+
+.header .flex .icons div:hover {
+   background: linear-gradient(to right, #245e34, #4e794f);
+}
+
+.header .flex .profile {
+  position: absolute;
+  top: 125%;
+  right: 2rem;
+  background-color: var(--white);
+  border-radius: 0.5rem;
+  box-shadow: var(--box-shadow);
+  border: var(--border);
+  padding: 2rem;
+  width: 30rem;
+  padding-top: 1.2rem;
+  display: none;
+  animation: fadeIn 0.2s linear;
+}
+
+.header .flex .profile.active {
+  display: inline-block;
+}
+
+.header .flex .profile p {
+  text-align: center;
+  color: var(--black);
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+#menu-btn {
+  display: none;
+}
+
+
+
+
+
+
+section{
+   padding:2rem;
+   max-width: 1200px;
+   margin:0 auto;
+}
+
+.heading{
+   font-size: 4rem;
+   color:var(--black);
+   margin-bottom: 2rem;
+   text-align: center;
+   text-transform: uppercase;
+}
+
+
+
+.btn{
+   background: linear-gradient(to right, #245e34, #4e794f);
+}
+
+
+.option-btn{
+   background: linear-gradient(to right, #344a15, #4e7958);
+}
+
+.delete-btn{
+   background: linear-gradient(to right, #427951, #235930);
+}
+
+.flex-btn{
+   display: flex;
+   gap:1rem;
+}
+
+.message{
+   position: sticky;
+   top:0;
+   max-width: 1200px;
+   margin:0 auto;
+   background-color: var(--light-bg);
+   padding:2rem;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   gap:1.5rem;
+   z-index: 1100;
+}
+
+.message span{
+   font-size: 2rem;
+   color:var(--black);
+}
+
+.message i{
+   cursor: pointer;
+   background: linear-gradient(to right, #245e34, #4e794f);
+   font-size: 2.5rem;
+}
+
+.message i:hover{
+   color:var(--black);
+}
+
+.empty{
+   padding:1.5rem;
+   background-color: var(--white);
+   border: var(--border);
+   box-shadow: var(--box-shadow);
+   text-align: center;
+   background: linear-gradient(to right, #245e34, #4e794f);
+   border-radius: .5rem;
+   font-size: 2rem;
+   text-transform: capitalize;
+}
+
+@keyframes fadeIn{
+   0%{
+      transform: translateY(1rem);
+   }
+}
+
+.form-container{
+   min-height: 100vh;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.form-container form{
+   padding:2rem;
+   text-align: center;
+   box-shadow: var(--box-shadow);
+   background-color: var(--white);
+   border-radius: .5rem;
+   width: 50rem;
+   border:var(--border);
+}
+
+.form-container form h3{
+   text-transform: uppercase;
+   color:var(--black);
+   margin-bottom: 1rem;
+   font-size: 2.5rem;
+}
+
+.form-container form p{
+   font-size: 1.8rem;
+   color:var(--light-color);
+   margin-bottom: 1rem;
+   border-radius: .5rem;
+}
+
+
+.form-container form .box{
+   width: 100%;
+   margin:1rem 0;
+   border-radius: .5rem;
+   background-color: var(--light-bg);
+   padding:1.4rem;
+   font-size: 1.8rem;
+   color:var(--black);
+}
+
+.header{
+   position: sticky;
+   top:0; left:0; right:0;
+   background-color: var(--white);
+   box-shadow: var(--box-shadow);
+   z-index: 1000;
+}
+
+.header .flex{
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   position: relative;
+}
+
+.header .flex .logo{
+   font-size: 2.5rem;
+   color:var(--black);
+}
+
+
+
+.header .flex .navbar a{
+   margin:0 1rem;
+   font-size: 2rem;
+   color:var(--black);
+}
+
+
+
+.header .flex .icons div{
+   margin-left: 1.7rem;
+   font-size: 2.5rem;
+   cursor: pointer;
+   color:var(--black);
+}
+
+.header .flex .icons div:hover{
+   background: linear-gradient(to right, #245e34, #4e794f);
+}
+
+.header .flex .profile{
+   position: absolute;
+   top:120%; right:2rem;
+   background-color: var(--white);
+   border-radius: .5rem;
+   box-shadow: var(--box-shadow);
+   border:var(--border);
+   padding:2rem;
+   width: 30rem;
+   padding-top: 1.2rem;
+   display: none;
+   animation:fadeIn .2s linear;
+}
+
+.header .flex .profile.active{
+   display: inline-block;
+}
+
+.header .flex .profile p{
+   text-align: center;
+   color:var(--black);
+   font-size: 2rem;
+   margin-bottom: 1rem;
+}
+
+#menu-btn{
+   display: none;
+}
+
+.dashboard .box-container{
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(27rem, 1fr));
+   gap:1.5rem;
+   justify-content: center;
+   align-items: flex-start;
+}
+
+.dashboard .box-container .box{
+   padding:2rem;
+   text-align: center;
+   border:var(--border);
+   box-shadow: var(--box-shadow);
+   border-radius: .5rem;
+   background-color: var(--white);
+}
+
+.dashboard .box-container .box h3{
+   font-size: 2.7rem;
+   color:var(--black);
+}
+
+
+.dashboard .box-container .box p{
+   padding:1.3rem;
+   border-radius: .5rem;
+   background-color: var(--light-bg);
+   font-size: 1.7rem;
+   color:var(--light-color);
+   margin:1rem 0;
+}
+
+.add-products form{
+   max-width: 70rem;
+   margin: 0 auto;   
+   background-color: var(--white);
+   box-shadow: var(--box-shadow);
+   border:var(--border);
+   border-radius: .5rem;
+   padding:2rem;
+}
+
+.add-products form .flex{
+   display: flex;
+   gap:1.5rem;
+   flex-wrap: wrap;
+}
+
+.inputBox{
+   flex:1 1 25rem;
+} 
+
+.add-products form span{
+   font-size:1.7rem;
+   color:var(--light-color);
+}
+
+.add-products form .box{
+   font-size: 1.8rem;
+   background-color: var(--light-bg);
+   border-radius: .5rem;
+   padding:1.4rem;
+   width: 100%;
+   margin-top: 1.5rem;
+}
+
+.add-products form textarea{
+   height: 5.4rem;
+   resize: none;
+}
+
+/* General container for the product list */
+.product-list {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: space-between; /* Căn chỉnh không gian giữa các sản phẩm */
+}
+
+.product-item {
+   flex: 0 0 23%; /* Điều chỉnh kích thước sản phẩm */
+   margin-bottom: 20px; /* Khoảng cách giữa các hàng */
+   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Đổ bóng cho sản phẩm */
+   padding: 10px; /* Thêm padding cho sản phẩm */
+   text-align: center; /* Căn giữa nội dung trong sản phẩm */
+}
+
+.product-item img {
+   width: 100%;
+   height: 200px; /* Đặt chiều cao cố định để đồng nhất kích thước hình ảnh */
+   object-fit: cover; /* Cắt ảnh để phù hợp với khung mà không biến dạng */
+   border-radius: 8px;
+   margin-bottom: 10px;
+}
+
+.product-item h3 {
+   font-size: 1.2em;
+   margin: 10px 0;
+}
+
+.product-item p {
+   font-size: 0.9em;
+   color: #666;
+}
+
+.product-item .btn {
+   display: inline-block;
+    padding: 10px 15px; /* Padding cho nút */
+    border: none; /* Không có viền */
+    border-radius: 5px; /* Bo tròn góc */
+    color: #fff; /* Màu chữ trắng */
+    text-decoration: none; /* Không gạch chân */
+    font-weight: bold; /* Chữ đậm */
+    cursor: pointer; /* Con trỏ chuột thành hình tay */
+    transition: background-color 0.3s; /* Hiệu ứng chuyển màu nền */
+}
+.btn-primary {
+   background-color: #2c8b5b; /* Màu nền cho nút Sửa */
+}
+
+.btn-primary:hover {
+   background-color: #638e61; /* Màu nền khi hover cho nút Sửa */
+}
+
+.product-item .btn-danger {
+   box-shadow: none;
+   outline: none;
+   background-color: #bd616b; /* Màu đỏ đậm */
+ }
+
+.btn-danger:hover {
+   background-color: #a42d39; /* Màu nền khi hover cho nút Xóa */
+}
+
+
+.update-order {
+   max-width: 350px;
+   margin: 0 auto;
+   padding: 15px;
+   background-color: #f9f9f9;
+   border-radius: 8px;
+   border: var(--border);
+   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.update-order .heading {
+   text-align: center;
+   font-size: 24px;
+   margin-bottom: 20px;
+   color: #333;
+}
+
+.update-order .message {
+   background-color: #dff0d8;
+   color: #3c763d;
+   padding: 10px;
+   border-radius: 4px;
+   text-align: center;
+   margin-bottom: 20px;
+}
+
+.update-order label {
+   display: block;
+   margin-bottom: 5px;
+   font-weight: bold;
+   color: #555;
+}
+
+.update-order input[type="text"],
+.update-order input[type="number"],
+.update-order select {
+   width: 100%;
+   padding: 10px;
+   margin-bottom: 1px;
+   border: 1px solid #cbc5c5;
+   border-radius: 4px;
+   font-size: 16px;
+   box-sizing: border-box;
+}
+
+.update-order input[type="submit"] {
+   background: linear-gradient(to right, #245e34, #4e794f);
+   color: white;
+   border: none;
+   padding: 10px 15px;
+   border-radius: 4px;
+   cursor: pointer;
+   font-size: 16px;
+   transition: background-color 0.3s;
+}
+
+.update-order input[type="submit"]:hover {
+   background: linear-gradient(to right, #245e34, #4e794f);
+}
+
+.update-order input:focus,
+.update-order select:focus {
+   border-color: #569f69;
+   outline: none;
+   box-shadow: 0 0 5px rgba(62, 125, 77, 0.5);
+}
+
+
+.show-products .box-container{
+   display: grid;
+   grid-template-columns: repeat(auto-fit, 33rem);
+   gap:1.5rem;
+   justify-content: center;
+   align-items: flex-start;
+}
+
+.show-products .box-container .box{
+   background-color: var(--white);
+   box-shadow: var(--box-shadow);
+   border-radius: .5rem;
+   border:var(--border);
+   padding:2rem;
+}
+
+.show-products .box-container .box img{
+   width: 100%;
+   height: 20rem;
+   object-fit: contain;
+   margin-bottom: 1.5rem;
+}
+
+.show-products .box-container .box .name{
+   font-size: 2rem;
+   color:var(--black);
+}
+
+.show-products .box-container .box .price{
+   font-size: 2rem;
+   background: linear-gradient(to right, #245e34, #4e794f);
+   margin:.5rem 0;
+}
+
+.show-products .box-container .box .details{
+   font-size: 1.5rem;
+   color:var(--light-color);
+   line-height: 2;
+}
+
+.update-product form{
+   background-color: var(--white);
+   box-shadow: var(--box-shadow);
+   border-radius: .5rem;
+   border:var(--border);
+   padding:2rem;
+   max-width: 50rem;
+   margin:0 auto;
+}
+
+.update-product form .image-container{
+   margin-bottom: 2rem;
+}
+
+.update-product form .image-container .main-image img{
+   height: 20rem;
+   width: 100%;
+   object-fit: contain;
+}
+
+.update-product form .image-container .sub-image{
+   display: flex;
+   gap:1rem;
+   justify-content: center;
+   margin:1rem 0;
+}
+
+.update-product form .image-container .sub-image img{
+   height: 5rem;
+   width: 7rem;
+   object-fit: contain;
+   padding:.5rem;
+   border:var(--border);
+   cursor: pointer;
+   transition: .2s linear;
+}
+
+.update-product form .image-container .sub-image img:hover{
+   transform: scale(1.1);
+}
+
+.update-product form .box{
+   width: 100%;
+   border-radius: .5rem;
+   padding:1.4rem;
+   font-size: 1.8rem;
+   color:var(--black);
+   background-color: var(--light-bg);
+   margin:1rem 0;
+}
+
+.update-product form span{
+   font-size: 1.7rem;
+   color:var(--light-color);
+}
+
+.update-product form textarea{
+   height: 15rem;
+   resize: none;
+}
+
+.orders .box-container{
+   display: grid;
+   grid-template-columns: repeat(auto-fit, 33rem);
+   gap:1.5rem;
+   align-items: flex-start;
+   justify-content: center;
+}
+
+.orders .box-container .box{
+   padding:2rem;
+   padding-top: 1rem;
+   border-radius: .5rem;
+   border:var(--border);
+   background-color: var(--white);
+   box-shadow: var(--box-shadow);
+}
+
+.orders .box-container .box p{
+   line-height: 1.5;
+   font-size: 2rem;
+   color:var(--light-color);
+   margin:1rem 0;
+}
+
+.orders .box-container .box p span{
+   background: linear-gradient(to right, #245e34, #4e794f);
+}
+
+.orders .box-container .select{
+   margin-bottom: .5rem;
+   width: 100%;
+   background-color: var(--light-bg);
+   padding:1rem;
+   font-size: 1.8rem;
+   color:var(--black);
+   border-radius: .5rem;
+   border:var(--border);
+}
+
+.accounts .box-container{
+   display: grid;
+   grid-template-columns: repeat(auto-fit, 33rem);
+   gap:1.5rem;
+   align-items: flex-start;
+   justify-content: center;
+}
+
+.accounts .box-container .box{
+   padding:2rem;
+   padding-top: .5rem;
+   border-radius: .5rem;
+   text-align: center;
+   border:var(--border);
+   background-color: var(--white);
+   box-shadow: var(--box-shadow);
+}
+
+.accounts .box-container .box p{
+   font-size: 2rem;
+   color:var(--light-color);
+   margin: 1rem 0;
+}
+
+.accounts .box-container .box p span{
+   background: linear-gradient(to right, #245e34, #4e794f);
+}
+
+.contacts .box-container{
+   display: grid;
+   grid-template-columns: repeat(auto-fit, 33rem);
+   gap:1.5rem;
+   align-items: flex-start;
+   justify-content: center;
+}
+
+.contacts .box-container .box{
+   padding:2rem;
+   padding-top: 1rem;
+   border-radius: .5rem;
+   border:var(--border);
+   background-color: var(--white);
+   box-shadow: var(--box-shadow);
+}
+
+.contacts .box-container .box p{
+   line-height: 1.5;
+   font-size: 2rem;
+   color:var(--light-color);
+   margin:1rem 0;
+}
+
+
+.no-style {
+   all: unset; /* Loại bỏ tất cả các kiểu dáng CSS */
+}
+
+
+/* Styles for index.blade.php */
+
+
+
+
+@media (max-width:991px){
+
+   html{
+      font-size: 55%;
+   }
+
+}
+
+@media (max-width:768px){
+
+   #menu-btn{
+      display: inline-block;
+   }
+
+   .header .flex .navbar{
+      position: absolute;
+      top:99%; left:0; right:0;
+      border-top: var(--border);
+      border-bottom: var(--border);
+      background-color: var(--white);
+      transition: .2s linear;
+      clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+   }
+
+   .header .flex .navbar.active{
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+   }
+
+   .header .flex .navbar a{
+      display: block;
+      margin:2rem;
+   }
+
+}
+
+@media (max-width:450px){
+
+   html{
+      font-size: 50%;
+   }
+
+   .heading{
+      font-size: 3.5rem;
+   }
+
+   .flex-btn{
+      flex-flow: column;
+      gap:0;
+   }
+
+   .add-products form textarea{
+      height:15rem;
+   }   
+
+   .show-products .box-container{
+      grid-template-columns: 1fr;
+   }
+
+   .orders .box-container{
+      grid-template-columns: 1fr;
+   }
+
+   .accounts .box-container{
+      grid-template-columns: 1fr;
+   }
+
+   .contacts .box-container{
+      grid-template-columns: 1fr;
+   }
+
+}

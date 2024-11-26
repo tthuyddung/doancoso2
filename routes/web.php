@@ -22,6 +22,9 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\ProWhiController;
+use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\RentalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +61,7 @@ Route::get('/users', [AdminController::class, 'users'])->name('auth.users');
 
 // Định nghĩa route cho danh sách admins
 Route::get('/admins', [AdminController::class, 'admins'])->name('auth.admins');
+Route::get('/admin/revenue-chart', [AdminController::class, 'showRevenueChart'])->name('admin.revenueChart');
 
 
 Route::get('/auth/register_admin', [AdminRegistrationController::class, 'showRegistrationForm'])->name('auth.register_admin');
@@ -89,7 +93,10 @@ Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name
 Route::put('/products/{product}', [ProductController::class, 'update'])->name('auth.update'); // Cập nhật sản phẩm
 Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('auth.destroy'); // Xóa sản phẩm
 
-Route::get('/placed-orders', [OrderController::class, 'index'])->name('placed.orders');
+Route::post('/placed-orders', [OrderController::class, 'placeOrder'])->name('placed-orders');
+Route::get('/order-success/{orderId}', [OrderController::class, 'showOrderSuccess'])->name('orderSuccess');
+
+
 Route::post('/update-payment', [OrderController::class, 'updatePayment'])->name('update.payment');
 Route::get('/delete-order/{id}', [OrderController::class, 'destroy'])->name('delete.order');
 Route::get('/update-order/{id}', [OrderController::class, 'edit'])->name('order.edit');
@@ -153,8 +160,14 @@ Route::get('/search', [SearchController::class, 'search'])->name('search');
 Route::post('/search', [SearchController::class, 'search']);
 
 
-Route::match(['get', 'post'], '/checkout', [CheckoutController::class, 'index'])->name('checkout');
+Route::post('/rental-info', [CheckoutController::class, 'rentalInfo'])->name('rentalInfo.store');
+// web.php (routes)
+Route::post('checkout/{productId}', [CheckoutController::class, 'index'])->name('checkout');
+
 Route::post('/place-order', [CheckoutController::class, 'placeOrder'])->name('place.order');
+// web.php (routes)
+Route::post('process-payment', [RentalController::class, 'processPayment'])->name('processPayment');
+
 
 Route::get('/orders', [OrdersController::class, 'index'])->name('user.orders');
 
@@ -164,8 +177,30 @@ Route::get('/pug', function () {
 });
 
 
+Route::post('/cart/{id}', [CartController::class, 'addToCart'])->name('addToCart');
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart/update-qty', [CartController::class, 'updateQuantity'])->name('cart.update.qty');
+Route::post('/cart/delete', [CartController::class, 'deleteItem'])->name('cart.delete.item');
+Route::post('/cart/clear', [CartController::class, 'clearCart'])->name('cart.clear');
 
-Route::match(['get', 'post'], '/cart', [CartController::class, 'index'])->name('cart.index');
-Route::post('/cart/delete', [CartController::class, 'delete'])->name('cart.delete');
-Route::get('/cart/delete-all', [CartController::class, 'deleteAll'])->name('cart.deleteAll');
-Route::post('/cart/update-qty', [CartController::class, 'updateQty'])->name('cart.updateQty');
+
+
+    Route::post('/add-to-wishlist', [WishlistController::class, 'addToWishlist'])->name('addToWishlist');
+    Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
+    Route::post('/wishlist/delete/{id}', [WishlistController::class, 'delete'])->name('wishlist.delete');
+    Route::get('/wishlist/delete-all', [WishlistController::class, 'deleteAll'])->name('wishlist.deleteAll');
+    Route::post('/wishlist/add-to-cart', [WishlistController::class, 'addToCart'])->name('wishlist.addToCart');
+
+
+    Route::middleware(['web'])->group(function () {
+        Route::get('/rental-info/{id}', [RentalController::class, 'rentalInfo'])->name('rentalInfo');
+        Route::post('rental-details/{productId}', [RentalController::class, 'storeRentalDetails'])->name('storeRentalDetails');
+        Route::get('/checkout/{productId}/{orderId}', [RentalController::class, 'showPreview'])->name('xemtruoc');
+        Route::get('/placed-orders', [RentalController::class, 'showPlacedOrders'])->name('placed-orders');
+    });
+    
+    
+    Route::post('/order-success', function () {
+        return view('user.order-success');
+    })->name('orderSuccess');
+    

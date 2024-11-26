@@ -1,79 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-</head>
-<body>
+@extends('layouts.on')
 
-@include('user.user_header')
+@section('content')
+<div class="containere">
+    <!-- Thông tin sản phẩm -->
+    <div class="product-details">
+        <h3>Thông tin sản phẩm</h3>
+        <div class="product">
+            <img src="{{ asset('images/' . $product->image) }}" alt="{{ $product->name }}" style="max-width: 200px; border-radius: 10px;">
+            <h4>{{ $product->name }}</h4>
+            <p>Giá thuê mỗi giờ: <span id="hourly_price">{{ number_format((float)$product->price, 0, ',', '.') }}</span> VNĐ</p>
+        </div>
+    </div>
 
-<section class="checkout-orders">
-    <form action="{{ route('place.order') }}" method="POST">
+    <!-- Thông tin đơn hàng -->
+    <div class="order-details">
+        <h3>Thông tin đơn hàng</h3>
+        <p><strong>Tên:</strong> {{ $order->name ?? 'Order not found' }}</p>
+        <p><strong>Số điện thoại:</strong> {{  $order->number ?? 'Order not found' }}</p>
+        <p><strong>Email:</strong> {{ $order->email ?? 'Order not found'}}</p>
+        <p><strong>Phương thức thanh toán:</strong> {{ $order->method ?? 'Order not found'}}</p>
+        <p><strong>Địa điểm đến:</strong> {{ $order->destination ?? 'Order not found'}}</p>
+        <p><strong>Địa chỉ:</strong> {{ $order->address ?? 'Order not found'}}</p>
+        <p><strong>Số giờ thuê:</strong> {{ $order->rental_hours ?? 'Order not found'}}</p>
+        <!-- Thay thế giá thuê mỗi giờ bằng tổng tiền -->
+        <p><strong>Tổng tiền:</strong> 
+            @php
+                $totalPrice = $order->rental_hours * $product->price;
+            @endphp
+            <span id="total_price">{{ number_format((float)$totalPrice, 0, ',', '.') }} VNĐ</span>
+        </p>
+    </div>
+
+    <!-- Form thanh toán -->
+    <form action="{{ route('orderSuccess', ['productId' => $product->id]) }}" method="POST">
         @csrf
-        <h3>Your Orders</h3>
-        
-        <div class="display-orders">
-            <input type="hidden" name="total_products" value="">
-            <input type="hidden" name="total_price" value="0">
-            <div class="grand-total">Grand Total: <span>$0</span></div>
-        </div>
-
-        <h3>Place Your Orders</h3>
-        <div class="flex">
-            <div class="inputBox">
-                <span>Your Name:</span>
-                <input type="text" name="name" placeholder="Enter your name" class="box" maxlength="20" required>
-            </div>
-            <div class="inputBox">
-                <span>Your Number:</span>
-                <input type="number" name="number" placeholder="Enter your number" class="box" required>
-            </div>
-            <div class="inputBox">
-                <span>Your Email:</span>
-                <input type="email" name="email" placeholder="Enter your email" class="box" required>
-            </div>
-            <div class="inputBox">
-                <span>Payment Method:</span>
-                <select name="method" class="box" required>
-                    <option value="cash on delivery">Cash on Delivery</option>
-                    <option value="credit card">Credit Card</option>
-                    <option value="paypal">PayPal</option>
-                </select>
-            </div>
-            <div class="inputBox">
-                <span>Flat No:</span>
-                <input type="text" name="flat" placeholder="Flat number" class="box" required>
-            </div>
-            <div class="inputBox">
-                <span>Street:</span>
-                <input type="text" name="street" placeholder="Street name" class="box" required>
-            </div>
-            <div class="inputBox">
-                <span>City:</span>
-                <input type="text" name="city" placeholder="City" class="box" required>
-            </div>
-            <div class="inputBox">
-                <span>State:</span>
-                <input type="text" name="state" placeholder="State" class="box" required>
-            </div>
-            <div class="inputBox">
-                <span>Country:</span>
-                <input type="text" name="country" placeholder="Country" class="box" required>
-            </div>
-            <div class="inputBox">
-                <span>Pin Code:</span>
-                <input type="number" name="pin_code" placeholder="Pin Code" class="box" required>
-            </div>
-        </div>
-        
-        <input type="submit" value="Place Order" class="btn">
+        <input type="hidden" name="total_price" value="{{ $order->total_price ?? $totalPrice }}">
+        <button type="submit" class="btn">Xác nhận và đặt hàng</button>
     </form>
-</section>
-
-<script src="{{ asset('js/script.js') }}"></script>
-</body>
-</html>
+</div>
+@endsection

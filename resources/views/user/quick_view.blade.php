@@ -23,8 +23,15 @@
                 
                 <!-- Total Price Display -->
                 <div class="total-price">
-                    <p>Total Price: <span id="total_price">${{ $product->price }}/-</span></p>
-                </div>
+                <h3>Tổng tiền:</h3>
+                @if(isset($totalPrice))
+                    <p>Tổng tiền: {{ number_format($totalPrice, 0, ',', '.') }} VNĐ</p>
+                @else
+                    <p>Tổng tiền chưa được tính toán.</p>
+                @endif
+
+            </div>
+
                 
                 <!-- "Book Now" Button -->
                 <form action="{{ route('checkout') }}" method="get">

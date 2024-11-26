@@ -157,3 +157,8 @@ function findRoute() {
   }
 }
 
+
+function submitWishlistForm(productId) {
+  document.getElementById('wishlist-form-' + productId).submit();
+}
+

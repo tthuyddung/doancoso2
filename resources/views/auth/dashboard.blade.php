@@ -33,14 +33,14 @@
 
             <div class="box">
                 <h3><span>$</span>{{ $totalCompletes }}<span>/-</span></h3>
-                <p>Completed Orders</p>
-                <a href="{{ route('user.orders') }}" class="btn">See Orders</a>
+                <p>Doanh thu</p>
+                <a href="{{ route('admin.revenueChart') }}" class="btn">See Orders</a>
             </div>
 
             <div class="box">
                 <h3>{{ $numberOfOrders }}</h3>
                 <p>Orders Placed</p>
-                <a href="{{ route('placed.orders') }}" class="btn">See Orders</a>
+                <a href="{{ route('placed-orders') }}" class="btn">See Orders</a>
             </div>
 
             <div class="box">

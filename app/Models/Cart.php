@@ -4,19 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
+
+// app/Models/Cart.php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
 
 class Cart extends Model
 {
-    use HasFactory;
+    protected $fillable = ['user_id', 'pid', 'name', 'price', 'quantity', 'image'];
 
-    protected $fillable = ['user_id', 'pid', 'name', 'image', 'price', 'quantity'];
+    // Define any relationships if needed (e.g., a relationship to the User model).
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+}
 
-    public function index()
-{
-    $user_id = Auth::id(); // Lấy user_id từ session nếu đã đăng nhập
-    $cart_count = $user_id ? Cart::where('user_id', $user_id)->count() : 0;
-    
-    return view('cart.index', compact('cart_count'));
-}
-}
+

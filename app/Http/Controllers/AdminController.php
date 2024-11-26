@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\admin;
 use Illuminate\Support\Facades\Log;
+use App\Models\Order; 
 
 
 class AdminController extends Controller
@@ -169,6 +170,21 @@ public function update(Request $request)
         ]);
 
         return redirect()->route('auth.login')->with('success', 'Admin registered successfully!');
+    }
+
+    public function showRevenueChart()
+    {
+        // Lấy tổng doanh thu theo từng ngày
+        $revenueData = Order::selectRaw('DATE(created_at) as date, SUM(total_price) as total_revenue')
+            ->groupBy('date')
+            ->orderBy('date', 'ASC')
+            ->get();
+
+        // Chuẩn bị dữ liệu cho biểu đồ
+        $dates = $revenueData->pluck('date')->toArray();
+        $revenues = $revenueData->pluck('total_revenue')->toArray();
+
+        return view('auth.revenue_chart', compact('dates', 'revenues'));
     }
 
 

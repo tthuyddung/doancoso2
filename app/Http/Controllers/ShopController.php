@@ -12,16 +12,14 @@ class ShopController extends Controller
     public function index()
     {
 
-        $user = Auth::user(); // Retrieves the authenticated user
-        return view('user.home'); // Trả về view shop.blade.php
+        $user = Auth::user();
+        return view('user.home');
     }
 
     public function add()
     {
-        // Lấy user_id từ session
         $user_id = Session::get('user_id', '');
 
-        // Lấy tất cả sản phẩm từ database
         $products = Product::all();
 
         return view('user.index', compact('products', 'user_id'));

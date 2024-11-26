@@ -14,7 +14,7 @@ class HomeController extends Controller
     $user = Auth::user();
 
     // Lấy 6 sản phẩm mới nhất
-    $products = DB::table('products')->limit(6)->get();
+    $products = DB::table('products')->get();
 
     // Truyền cả $user và $products vào view
     return view('user.home', compact('user', 'products'));

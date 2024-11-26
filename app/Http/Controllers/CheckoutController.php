@@ -1,63 +1,59 @@
 <?php
 
+// CheckoutController.php
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Order;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Product;
 
 class CheckoutController extends Controller
 {
-    // Hiển thị trang checkout
-    public function index()
+    public function index($productId)
     {
-        $user_id = Auth::id();
+        // Lấy sản phẩm từ cơ sở dữ liệu
+        $product = Product::findOrFail($productId);
 
-        return view('user.checkout', [
-            'grand_total' => 0,
-            'total_products' => ''
-        ]);
+        // Truyền sản phẩm vào view
+        return view('user.checkout', compact('product'));
     }
 
-    // Xử lý khi đặt hàng
-    public function placeOrder(Request $request)
+    public function storeRentalDetails(Request $request, $product_id)
     {
-        $user_id = Auth::id();
-
-        // Kiểm tra nếu người dùng đã đăng nhập
-        if (!$user_id) {
-            return redirect()->route('dangnhap')->with('error', 'Please login first.');
-        }
-
-        // Xác thực dữ liệu đầu vào
-        $request->validate([
-            'name' => 'required|string|max:20',
-            'number' => 'required|digits_between:10,12',
-            'email' => 'required|email|max:50',
-            'method' => 'required|string',
-            'flat' => 'required|string|max:50',
-            'street' => 'required|string|max:50',
-            'city' => 'required|string|max:50',
-            'state' => 'required|string|max:50',
-            'country' => 'required|string|max:50',
-            'pin_code' => 'required|digits:6'
+        // Lưu thông tin vào session
+        session([
+            'rental_details' => $request->all(),
         ]);
 
-        // Lưu địa chỉ
-        $address = 'Flat No. ' . $request->flat . ', ' . $request->street . ', ' . $request->city . ', ' . $request->state . ', ' . $request->country . ' - ' . $request->pin_code;
+        // Chuyển hướng đến trang checkout với product_id
+        return redirect()->route('checkout', $product_id);
+    }
 
-        // Tạo đơn hàng mới
-        Order::create([
-            'user_id' => $user_id,
-            'name' => $request->name,
-            'number' => $request->number,
-            'email' => $request->email,
-            'method' => $request->method,
-            'address' => $address,
-            'total_products' => $request->total_products ?? '',
-            'total_price' => $request->total_price ?? 0,
+    public function processPayment(Request $request)
+    {
+        // Kiểm tra nếu thông tin thanh toán hợp lệ
+        $validated = $request->validate([
+            'product_id' => 'required|exists:products,id',
+            'total_price' => 'required|numeric',
         ]);
 
-        return redirect()->route('checkout')->with('success', 'Order placed successfully!');
+        // Lấy thông tin sản phẩm từ cơ sở dữ liệu
+        $product = Product::find($request->product_id);
+
+        // Tạo đơn hàng trong cơ sở dữ liệu
+        $order = Order::create([
+            'user_id' => auth()->id(),
+            'name' => session('rental_details.name'),
+            'number' => session('rental_details.number'),
+            'email' => session('rental_details.email'),
+            'method' => session('rental_details.method'),
+            'address' => session('rental_details.address'),
+            'destination' => session('rental_details.destination'),
+            'rental_hours' => session('rental_details.rental_hours'),
+            'total_products' => $product->name,
+            'total_price' => $request->total_price,
+        ]);
+
+        // Giả sử thanh toán thành công:
+        return redirect()->route('thankyou');
     }
 }

@@ -17,6 +17,10 @@
          <input type="submit" value="login now" class="btn">
          <p>don't have an account?</p>
          <a href="{{ route('register') }}" class="option-btn">register now</a>
+
+         <!-- Buttons for social login -->
+         <a href="{{ route('login.facebook') }}" class="btn"><i class="fab fa-facebook"></i> Login with Facebook</a>
+            <a href="{{ route('login.google') }}" class="btn"><i class="fab fa-google"></i> Login with Google</a>
       </form>
    </section>
 </div>

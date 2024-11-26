@@ -19,7 +19,7 @@
                     <p>Number: <span>{{ $order->number }}</span></p>
                     <p>Address: <span>{{ $order->address }}</span></p>
                     <p>Total products: <span>{{ $order->total_products }}</span></p>
-                    <p>Total price: <span>${{ $order->total_price }}/-</span></p>
+                    <p>Total price: <span>${{ $order->total_price }}</span></p>
                     <p>Payment method: <span>{{ $order->method }}</span></p>
 
                     <form action="{{ route('update.payment') }}" method="post">

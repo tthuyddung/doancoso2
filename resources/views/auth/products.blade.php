@@ -5,7 +5,9 @@
                 <img src="{{ asset('images/' . $product->image) }}" alt="Product Image">
                 <h3>{{ $product->name }}</h3>
                 <p>Price: ${{ $product->price }}</p>
-                <p>{{ Str::limit($product->details, 100) }}</p>
+                <div class="details">
+                    {{ $product->details }}
+                </div>
             </div>
         @endforeach
     </div>

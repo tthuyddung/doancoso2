@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Order; // Make sure to import the Order model
+use App\Models\Order; 
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -63,6 +63,42 @@ public function update(Request $request)
     $order->save();
 
     return redirect()->route('placed.orders')->with('message', 'Order updated successfully!');
+}
+
+public function placeOrder(Request $request)
+{
+    $validated = $request->validate([
+        'total_price' => 'required|numeric|min:0',
+    ]);
+
+    // Lấy thông tin thuê xe từ session
+    $rentalInfo = session('rentalInfo', null);
+    $productId = session('product_id', null);
+
+    // Kiểm tra xem rentalInfo hoặc productId có bị thiếu không
+    if (is_null($rentalInfo) || is_null($productId)) {
+        return redirect()->back()->with('error', 'Thông tin thuê xe hoặc ID sản phẩm bị thiếu.');
+    }
+
+    // Tạo đơn hàng mới
+    $order = Order::create([
+        'user_id' => auth()->id(),
+        'product_id' => $productId,
+        'name' => $rentalInfo['name'],
+        'number' => $rentalInfo['number'],
+        'email' => $rentalInfo['email'],
+        'method' => $rentalInfo['method'],
+        'destination' => $rentalInfo['destination'],
+        'address' => $rentalInfo['address'],
+        'rental_hours' => $rentalInfo['rental_hours'],
+        'total_price' => $validated['total_price'],
+    ]);
+
+    // Xóa dữ liệu session
+    session()->forget(['rentalInfo', 'product_id']);
+
+    return redirect()->route('orderSuccess', ['orderId' => $order->id]);
+
 }
 
 }

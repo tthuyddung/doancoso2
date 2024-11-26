@@ -12,7 +12,7 @@ class ProductController extends Controller
 {
     public function index()
 {
-    $products = Product::all(); // Truy vấn tất cả sản phẩm
+    $products = Product::all(); 
 
     return view('auth.create', compact('products'));
 }
@@ -54,9 +54,7 @@ class ProductController extends Controller
 
 
     
-    
 
-    // app/Http/Controllers/ProductController.php
     public function edit($id)
 {
     $product = Product::findOrFail($id);
@@ -101,11 +99,10 @@ public function update(Request $request, $id)
             }
         }
 
-        // Lưu ảnh mới
         $image = $request->file('image');
         $imageName = time() . '.' . $image->getClientOriginalExtension();
-        $image->move(public_path('images'), $imageName); // Di chuyển ảnh mới vào thư mục public/images
-        $product->image = $imageName; // Cập nhật tên ảnh vào cơ sở dữ liệu
+        $image->move(public_path('images'), $imageName);
+        $product->image = $imageName; 
     }
 
     $product->save();
@@ -115,10 +112,9 @@ public function update(Request $request, $id)
 
 public function quickView($pid)
     {
-        // Lấy thông tin sản phẩm theo ID
+      
         $product = Product::find($pid);
 
-        // Kiểm tra nếu sản phẩm không tồn tại
         if (!$product) {
             return redirect()->back()->with('error', 'Product not found');
         }
